@@ -5,7 +5,6 @@ if (process.argv.length < 3) {
     process.exit(1)
 }
 
-const password = process.argv[2]
 
 const url = process.env.MONGODB_URI
 
@@ -34,7 +33,7 @@ if (process.argv.length < 4) {
         number: process.argv[4].toString()
     })
 
-    person.save().then(result => {
+    person.save().then(() => {
         console.log('person saved!')
         mongoose.connection.close()
     })

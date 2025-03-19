@@ -4,16 +4,14 @@ const app = express()
 const morgan = require('morgan')
 const cors = require('cors')
 const Person = require('./models/person')
-const { connect, connection } = require('mongoose')
 
 const PORT = process.env.PORT
-
 app.use(express.static('dist'))
 app.use(cors())
 app.use(express.json())
 
-morgan.token('post-data', (request) => JSON.stringify(request.body));
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post-data'));
+morgan.token('post-data', (request) => JSON.stringify(request.body))
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post-data'))
 
 
 app.get('/api/persons', (request, response) => {
@@ -48,7 +46,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 app.delete('/api/persons/:id', (request, response, next) => {
     const id = request.params.id
     Person.findByIdAndDelete(id)
-        .then(result => {
+        .then(() => {
 
             response.status(204).end()
         })
